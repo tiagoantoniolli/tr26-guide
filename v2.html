@@ -1,0 +1,2620 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comp Experience — Total Rewards'26</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Work+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --red: #e3204c;
+        --red-dark: #c41a40;
+        --red-glow: rgba(227, 32, 76, 0.4);
+        --gold: #c5a55a;
+        --gold-light: #d4b96e;
+        --gold-bright: #e0c878;
+        --gold-dim: rgba(197, 165, 90, 0.12);
+        --gold-glow: rgba(197, 165, 90, 0.35);
+        --dark: #0a0a0a;
+        --dark-card: rgba(17, 17, 17, 0.7);
+        --dark-surface: #1a1a1a;
+        --slate: #0f172a;
+        --white: #ffffff;
+        --gray-50: #fafafa;
+        --gray-100: #f8fafc;
+        --gray-200: #e2e8f0;
+        --gray-300: #cbd5e1;
+        --gray-400: #94a3b8;
+        --gray-500: #64748b;
+        --gray-600: #475569;
+        --radius: 20px;
+        --radius-sm: 12px;
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+        --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        font-family:
+          "Work Sans",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: var(--dark);
+        color: var(--gray-100);
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      /* Grain texture overlay */
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.025;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      }
+
+      ::selection {
+        background: var(--red);
+        color: white;
+      }
+
+      /* Smooth gradient background that shifts */
+      .bg-gradient {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: linear-gradient(
+          180deg,
+          #050508 0%,
+          #0a0a12 30%,
+          var(--slate) 100%
+        );
+      }
+
+      .bg-gradient::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 50% at 20% 20%,
+            rgba(197, 165, 90, 0.04) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 80% 60%,
+            rgba(227, 32, 76, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse 50% 30% at 50% 90%,
+            rgba(197, 165, 90, 0.03) 0%,
+            transparent 50%
+          );
+      }
+
+      /* ═══ NAV ═══ */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(5, 5, 8, 0.6);
+        backdrop-filter: blur(24px) saturate(1.4);
+        -webkit-backdrop-filter: blur(24px) saturate(1.4);
+        border-bottom: 1px solid rgba(197, 165, 90, 0.08);
+        transition:
+          background 0.4s,
+          border-color 0.4s;
+      }
+      .nav.scrolled {
+        background: rgba(5, 5, 8, 0.9);
+        border-bottom-color: rgba(197, 165, 90, 0.15);
+      }
+      .nav-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 14px 28px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .nav-inner::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-logo {
+        height: 20px;
+        margin-right: 16px;
+        flex-shrink: 0;
+        opacity: 0.85;
+        transition: opacity 0.3s;
+      }
+      .nav-logo:hover {
+        opacity: 1;
+      }
+      .nav-link {
+        font-family: "Outfit", sans-serif;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--gray-500);
+        text-decoration: none;
+        padding: 7px 14px;
+        border-radius: 100px;
+        white-space: nowrap;
+        transition: all 0.3s var(--ease);
+        letter-spacing: 0.01em;
+        position: relative;
+      }
+      .nav-link:hover {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .nav-link.active {
+        color: var(--gold);
+        background: var(--gold-dim);
+      }
+
+      /* ═══ HERO ═══ */
+      .hero {
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 140px 28px 100px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Animated concentric circles */
+      .hero-rings {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+      .hero-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        border: 1px solid rgba(197, 165, 90, 0.06);
+        animation: ring-pulse 8s ease-in-out infinite;
+      }
+      .hero-ring:nth-child(1) {
+        width: 300px;
+        height: 300px;
+        margin: -150px 0 0 -150px;
+        animation-delay: 0s;
+      }
+      .hero-ring:nth-child(2) {
+        width: 500px;
+        height: 500px;
+        margin: -250px 0 0 -250px;
+        animation-delay: 1s;
+      }
+      .hero-ring:nth-child(3) {
+        width: 700px;
+        height: 700px;
+        margin: -350px 0 0 -350px;
+        animation-delay: 2s;
+      }
+      .hero-ring:nth-child(4) {
+        width: 900px;
+        height: 900px;
+        margin: -450px 0 0 -450px;
+        animation-delay: 3s;
+      }
+
+      @keyframes ring-pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scale(1.02);
+        }
+      }
+
+      /* Floating gradient orbs */
+      .hero-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+        animation: orb-float 12s ease-in-out infinite;
+      }
+      .hero-orb--gold {
+        width: 400px;
+        height: 400px;
+        background: rgba(197, 165, 90, 0.07);
+        top: 20%;
+        left: 30%;
+        animation-delay: 0s;
+      }
+      .hero-orb--red {
+        width: 300px;
+        height: 300px;
+        background: rgba(227, 32, 76, 0.05);
+        bottom: 20%;
+        right: 20%;
+        animation-delay: -4s;
+      }
+
+      @keyframes orb-float {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        33% {
+          transform: translate(30px, -20px);
+        }
+        66% {
+          transform: translate(-20px, 15px);
+        }
+      }
+
+      .hero-tr-logo {
+        height: 110px;
+        margin-bottom: 36px;
+        opacity: 0.92;
+        animation: hero-fade-in 1s var(--ease) 0.2s both;
+        filter: drop-shadow(0 0 40px rgba(197, 165, 90, 0.1));
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.12),
+          rgba(197, 165, 90, 0.04)
+        );
+        border: 1px solid rgba(197, 165, 90, 0.2);
+        color: var(--gold);
+        font-family: "Outfit", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        padding: 10px 24px;
+        border-radius: 100px;
+        margin-bottom: 36px;
+        animation: hero-fade-in 1s var(--ease) 0.4s both;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-badge::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(197, 165, 90, 0.15),
+          transparent
+        );
+        animation: badge-shimmer 4s ease-in-out infinite;
+      }
+      @keyframes badge-shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 200%;
+        }
+      }
+
+      .hero h1 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 900;
+        font-size: clamp(56px, 11vw, 96px);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        color: var(--white);
+        margin-bottom: 24px;
+        animation: hero-fade-in 1s var(--ease) 0.6s both;
+        position: relative;
+      }
+      .hero h1 span {
+        background: linear-gradient(135deg, var(--red), #ff4d6d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-sub {
+        font-size: clamp(17px, 2.8vw, 21px);
+        color: var(--gray-400);
+        font-weight: 400;
+        margin-bottom: 52px;
+        max-width: 520px;
+        line-height: 1.55;
+        animation: hero-fade-in 1s var(--ease) 0.8s both;
+      }
+      .hero-details {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 32px;
+        animation: hero-fade-in 1s var(--ease) 1s both;
+      }
+      .hero-detail {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 400;
+        color: var(--gray-300);
+      }
+      .hero-detail i {
+        color: var(--gold);
+        width: 18px;
+        height: 18px;
+      }
+      .hero-comp-logo {
+        height: 26px;
+        margin-top: 56px;
+        opacity: 0.35;
+        animation: hero-fade-in 1s var(--ease) 1.2s both;
+        transition: opacity 0.4s;
+      }
+      .hero-comp-logo:hover {
+        opacity: 0.6;
+      }
+
+      .hero-scroll-hint {
+        position: absolute;
+        bottom: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        animation: hero-fade-in 1s var(--ease) 1.5s both;
+      }
+      .hero-scroll-hint span {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gray-500);
+      }
+      .scroll-line {
+        width: 1px;
+        height: 32px;
+        background: linear-gradient(180deg, var(--gold), transparent);
+        animation: scroll-line-anim 2s ease-in-out infinite;
+      }
+      @keyframes scroll-line-anim {
+        0% {
+          opacity: 0;
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+        50% {
+          opacity: 1;
+          transform: scaleY(1);
+          transform-origin: top;
+        }
+        100% {
+          opacity: 0;
+          transform: scaleY(0);
+          transform-origin: bottom;
+        }
+      }
+
+      @keyframes hero-fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ═══ SECTIONS ═══ */
+      .section {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 100px 28px;
+        position: relative;
+      }
+      .section-label {
+        font-family: "Outfit", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .section-label::before {
+        content: "";
+        display: inline-block;
+        width: 24px;
+        height: 1px;
+        background: var(--gold);
+        opacity: 0.5;
+      }
+      .section-title {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(30px, 5vw, 44px);
+        font-weight: 800;
+        color: var(--white);
+        margin-bottom: 16px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+      .section-desc {
+        font-size: 16px;
+        color: var(--gray-400);
+        margin-bottom: 48px;
+        max-width: 560px;
+        line-height: 1.6;
+      }
+
+      /* ═══ TIMELINE AGENDA ═══ */
+      .timeline {
+        position: relative;
+        padding-left: 40px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+          180deg,
+          var(--gold) 0%,
+          rgba(197, 165, 90, 0.3) 20%,
+          rgba(197, 165, 90, 0.1) 80%,
+          transparent 100%
+        );
+      }
+
+      .timeline-day {
+        position: relative;
+        margin-bottom: 48px;
+      }
+      .timeline-day:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Timeline node */
+      .timeline-node {
+        position: absolute;
+        left: -40px;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--dark);
+        border: 2px solid var(--gold);
+        z-index: 2;
+        transition: all 0.3s var(--ease);
+      }
+      .timeline-day:hover .timeline-node {
+        background: var(--gold);
+        box-shadow: 0 0 20px var(--gold-glow);
+        transform: scale(1.2);
+      }
+      .timeline-day.highlight .timeline-node {
+        background: var(--gold);
+        box-shadow: 0 0 16px var(--gold-glow);
+      }
+
+      .day-card {
+        background: var(--dark-card);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--radius);
+        padding: 32px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.4s var(--ease);
+        position: relative;
+        overflow: hidden;
+      }
+      .day-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: var(--radius);
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.06),
+          transparent,
+          rgba(255, 255, 255, 0.02)
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+      .day-card:hover {
+        border-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+      .day-card.highlight {
+        border-color: rgba(197, 165, 90, 0.15);
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.04),
+          var(--dark-card)
+        );
+      }
+      .day-card.highlight::before {
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.15),
+          transparent,
+          rgba(197, 165, 90, 0.05)
+        );
+      }
+
+      .day-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+      .day-date {
+        font-family: "Outfit", sans-serif;
+        font-weight: 800;
+        font-size: 12px;
+        color: var(--dark);
+        background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+        padding: 8px 16px;
+        border-radius: var(--radius-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(197, 165, 90, 0.2);
+      }
+      .day-label {
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--white);
+        letter-spacing: -0.01em;
+      }
+      .day-items {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .day-item {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        padding: 4px 0;
+      }
+      .day-time {
+        font-family: "Outfit", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--gray-500);
+        min-width: 60px;
+        padding-top: 2px;
+        white-space: nowrap;
+        letter-spacing: 0.02em;
+      }
+      .day-content {
+        flex: 1;
+      }
+      .day-content p {
+        font-size: 15px;
+        color: var(--gray-300);
+        line-height: 1.7;
+      }
+      .day-content strong {
+        color: var(--white);
+        font-weight: 600;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-family: "Outfit", sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 100px;
+        margin-top: 8px;
+      }
+      .tag-comp {
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.15),
+          rgba(197, 165, 90, 0.05)
+        );
+        color: var(--gold);
+        border: 1px solid rgba(197, 165, 90, 0.2);
+      }
+      .tag-waw {
+        background: rgba(59, 130, 246, 0.1);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.15);
+      }
+      .tag-optional {
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--gray-500);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      /* ═══ EXCLUSIVE BOX — Maximum Impact ═══ */
+      .exclusive-box {
+        position: relative;
+        padding: 28px;
+        margin-top: 8px;
+        border-radius: var(--radius);
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.06),
+          rgba(197, 165, 90, 0.01)
+        );
+        overflow: hidden;
+        transition: all 0.5s var(--ease);
+      }
+      /* Animated gold gradient border */
+      .exclusive-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: var(--radius);
+        padding: 1.5px;
+        background: linear-gradient(
+          var(--angle, 135deg),
+          var(--gold),
+          rgba(197, 165, 90, 0.1),
+          var(--gold-bright),
+          rgba(197, 165, 90, 0.05)
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        animation: border-rotate 6s linear infinite;
+      }
+      @keyframes border-rotate {
+        0% {
+          --angle: 0deg;
+        }
+        100% {
+          --angle: 360deg;
+        }
+      }
+      @property --angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
+      /* Subtle gold glow pulse */
+      .exclusive-box::after {
+        content: "";
+        position: absolute;
+        top: -20%;
+        right: -10%;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(
+          circle,
+          rgba(197, 165, 90, 0.1),
+          transparent 70%
+        );
+        pointer-events: none;
+        animation: exclusive-glow 4s ease-in-out infinite;
+      }
+      @keyframes exclusive-glow {
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+      .exclusive-box:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.1),
+          rgba(197, 165, 90, 0.03)
+        );
+        box-shadow: 0 0 40px rgba(197, 165, 90, 0.08);
+      }
+      .exclusive-box h4 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--gold-light);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        z-index: 1;
+      }
+      .exclusive-box p {
+        font-size: 14.5px;
+        color: var(--gray-300);
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ═══ TALK CARD ═══ */
+      .talk-card {
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          rgba(227, 32, 76, 0.08),
+          rgba(227, 32, 76, 0.02)
+        );
+        border: 1px solid rgba(227, 32, 76, 0.2);
+        border-radius: var(--radius);
+        padding: 28px;
+        margin-top: 8px;
+        overflow: hidden;
+        transition: all 0.4s var(--ease);
+      }
+      .talk-card::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(227, 32, 76, 0.06),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .talk-card:hover {
+        border-color: rgba(227, 32, 76, 0.35);
+        box-shadow: 0 0 40px rgba(227, 32, 76, 0.08);
+      }
+      .talk-card-logo {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        height: 22px;
+        opacity: 0.4;
+        transition: opacity 0.3s;
+        z-index: 2;
+      }
+      .talk-card:hover .talk-card-logo {
+        opacity: 0.7;
+      }
+      .talk-card h4 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        color: var(--white);
+        margin-bottom: 12px;
+        line-height: 1.35;
+        position: relative;
+        z-index: 1;
+        padding-right: 40px;
+      }
+      .talk-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        font-size: 13px;
+        color: var(--gray-400);
+        position: relative;
+        z-index: 1;
+      }
+      .talk-meta span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .talk-meta i {
+        width: 14px;
+        height: 14px;
+        color: var(--red);
+      }
+
+      /* ═══ INFO GRID ═══ */
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .info-card {
+        background: var(--dark-card);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius);
+        padding: 28px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.4s var(--ease);
+        position: relative;
+        overflow: hidden;
+      }
+      .info-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: var(--radius);
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.05),
+          transparent
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .info-card:hover {
+        border-color: rgba(197, 165, 90, 0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+      }
+      .info-card:hover::before {
+        opacity: 1;
+      }
+
+      .info-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.12),
+          rgba(197, 165, 90, 0.04)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+        border: 1px solid rgba(197, 165, 90, 0.1);
+        transition: all 0.3s;
+      }
+      .info-card:hover .info-icon {
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.2),
+          rgba(197, 165, 90, 0.08)
+        );
+        box-shadow: 0 0 24px rgba(197, 165, 90, 0.1);
+      }
+      .info-icon i {
+        color: var(--gold);
+        width: 22px;
+        height: 22px;
+      }
+      .info-card h3 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        color: var(--white);
+        margin-bottom: 10px;
+        letter-spacing: -0.01em;
+      }
+      .info-card p {
+        font-size: 14.5px;
+        color: var(--gray-400);
+        line-height: 1.7;
+      }
+      .info-card a {
+        color: var(--gold);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s;
+        border-bottom: 1px solid transparent;
+      }
+      .info-card a:hover {
+        color: var(--gold-bright);
+        border-bottom-color: var(--gold);
+      }
+      .distance-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--gray-300);
+        padding: 5px 12px;
+        border-radius: 8px;
+        margin-top: 8px;
+        margin-right: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      /* ═══ DRESS CODE ═══ */
+      .dress-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+      .dress-card {
+        background: var(--dark-card);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius);
+        padding: 28px 24px;
+        text-align: center;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.4s var(--ease);
+      }
+      .dress-card:hover {
+        border-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+      }
+      .dress-card .dress-emoji {
+        font-size: 36px;
+        margin-bottom: 16px;
+        display: block;
+      }
+      .dress-card h3 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+      .dress-card p {
+        font-size: 13.5px;
+        color: var(--gray-400);
+        line-height: 1.6;
+      }
+
+      /* ═══ CONTACTS ═══ */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .contact-card {
+        background: var(--dark-card);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius);
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.4s var(--ease);
+        position: relative;
+        overflow: hidden;
+      }
+      .contact-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: var(--radius);
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.2),
+          transparent,
+          rgba(37, 211, 102, 0.15)
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .contact-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      }
+      .contact-card:hover::before {
+        opacity: 1;
+      }
+
+      .contact-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(197, 165, 90, 0.15);
+        flex-shrink: 0;
+        transition: border-color 0.3s;
+      }
+      .contact-card:hover .contact-avatar {
+        border-color: rgba(197, 165, 90, 0.4);
+      }
+      .contact-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .contact-info h3 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--white);
+      }
+      .contact-info p {
+        font-size: 12px;
+        color: var(--gray-500);
+        margin-top: 2px;
+      }
+      .contact-wa {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #25d366;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.3s var(--ease);
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+      }
+      .contact-card:hover .contact-wa {
+        transform: scale(1.08);
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+      }
+      .contact-wa svg {
+        width: 18px;
+        height: 18px;
+        fill: white;
+      }
+
+      /* ═══ PARTICIPANTS ═══ */
+      .participants-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 16px;
+      }
+      .participant-card {
+        background: var(--dark-card);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: var(--radius);
+        padding: 24px 16px;
+        text-align: center;
+        text-decoration: none;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all 0.4s var(--ease);
+        position: relative;
+        overflow: hidden;
+      }
+      .participant-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: var(--radius);
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.2),
+          transparent
+        );
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .participant-card:hover {
+        border-color: rgba(197, 165, 90, 0.2);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      }
+      .participant-card:hover::before {
+        opacity: 1;
+      }
+
+      .participant-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        margin: 0 auto 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(197, 165, 90, 0.15),
+          rgba(197, 165, 90, 0.03)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        color: var(--gold);
+        border: 1.5px solid rgba(197, 165, 90, 0.12);
+        transition: all 0.4s var(--ease);
+      }
+      .participant-card:hover .participant-avatar {
+        border-color: rgba(197, 165, 90, 0.4);
+        box-shadow: 0 0 24px rgba(197, 165, 90, 0.15);
+        transform: scale(1.05);
+      }
+      .participant-card h4 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 600;
+        font-size: 13.5px;
+        color: var(--white);
+        line-height: 1.3;
+        margin-bottom: 4px;
+      }
+      .participant-card p {
+        font-size: 11.5px;
+        color: var(--gray-500);
+        font-weight: 500;
+      }
+      .participant-li {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 10px;
+        font-size: 11px;
+        color: var(--gray-500);
+        transition: color 0.3s;
+      }
+      .participant-card:hover .participant-li {
+        color: var(--gray-300);
+      }
+      .participant-li svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      /* ═══ APP BANNER ═══ */
+      .app-banner {
+        background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.8),
+          rgba(30, 41, 59, 0.5)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: var(--radius);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        margin-top: 36px;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        position: relative;
+        overflow: hidden;
+      }
+      .app-banner::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        opacity: 0.3;
+      }
+      .app-banner h3 {
+        font-family: "Outfit", sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        color: var(--white);
+      }
+      .app-banner p {
+        font-size: 14.5px;
+        color: var(--gray-400);
+        max-width: 420px;
+        line-height: 1.6;
+      }
+      .app-stores {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 4px;
+      }
+      .store-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--white);
+        color: var(--dark);
+        font-family: "Outfit", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        padding: 12px 22px;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        transition: all 0.3s var(--ease);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      .store-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+
+      /* ═══ EXCLUSIVE NOTE ═══ */
+      .exclusive-note {
+        text-align: center;
+        padding: 80px 28px 40px;
+        position: relative;
+      }
+      .exclusive-note::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        opacity: 0.4;
+      }
+      .exclusive-note p {
+        font-size: 16px;
+        color: var(--gray-400);
+        max-width: 580px;
+        margin: 0 auto;
+        line-height: 1.8;
+        font-style: italic;
+      }
+      .exclusive-note .gold {
+        color: var(--gold);
+        font-weight: 600;
+        font-style: normal;
+      }
+
+      /* ═══ FOOTER ═══ */
+      .footer {
+        text-align: center;
+        padding: 80px 28px 48px;
+        position: relative;
+      }
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .footer-logo {
+        height: 22px;
+        margin-bottom: 14px;
+        opacity: 0.3;
+        transition: opacity 0.4s;
+      }
+      .footer:hover .footer-logo {
+        opacity: 0.5;
+      }
+      .footer p {
+        font-size: 13px;
+        color: var(--gray-600);
+        letter-spacing: 0.01em;
+      }
+
+      /* ═══ REVEAL ANIMATIONS ═══ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(36px);
+        transition:
+          opacity 0.8s var(--ease),
+          transform 0.8s var(--ease);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+      .reveal-delay-5 {
+        transition-delay: 0.5s;
+      }
+
+      /* Parallax-like stagger for grids */
+      .info-grid .info-card:nth-child(1) {
+        transition-delay: 0s;
+      }
+      .info-grid .info-card:nth-child(2) {
+        transition-delay: 0.08s;
+      }
+      .info-grid .info-card:nth-child(3) {
+        transition-delay: 0.16s;
+      }
+      .info-grid .info-card:nth-child(4) {
+        transition-delay: 0.24s;
+      }
+      .info-grid .info-card:nth-child(5) {
+        transition-delay: 0.32s;
+      }
+      .info-grid .info-card:nth-child(6) {
+        transition-delay: 0.4s;
+      }
+
+      .participants-grid .participant-card:nth-child(1) {
+        transition-delay: 0s;
+      }
+      .participants-grid .participant-card:nth-child(2) {
+        transition-delay: 0.04s;
+      }
+      .participants-grid .participant-card:nth-child(3) {
+        transition-delay: 0.08s;
+      }
+      .participants-grid .participant-card:nth-child(4) {
+        transition-delay: 0.12s;
+      }
+      .participants-grid .participant-card:nth-child(5) {
+        transition-delay: 0.16s;
+      }
+      .participants-grid .participant-card:nth-child(6) {
+        transition-delay: 0.2s;
+      }
+      .participants-grid .participant-card:nth-child(7) {
+        transition-delay: 0.24s;
+      }
+      .participants-grid .participant-card:nth-child(8) {
+        transition-delay: 0.28s;
+      }
+      .participants-grid .participant-card:nth-child(9) {
+        transition-delay: 0.32s;
+      }
+      .participants-grid .participant-card:nth-child(10) {
+        transition-delay: 0.36s;
+      }
+      .participants-grid .participant-card:nth-child(11) {
+        transition-delay: 0.4s;
+      }
+      .participants-grid .participant-card:nth-child(12) {
+        transition-delay: 0.44s;
+      }
+      .participants-grid .participant-card:nth-child(13) {
+        transition-delay: 0.48s;
+      }
+      .participants-grid .participant-card:nth-child(14) {
+        transition-delay: 0.52s;
+      }
+
+      /* WhatsApp SVG path */
+      .wa-svg-path {
+        d: path(
+          "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        );
+      }
+
+      /* LinkedIn SVG path */
+      .li-svg-path {
+        d: path(
+          "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+        );
+      }
+
+      /* ═══ RESPONSIVE ═══ */
+      @media (max-width: 640px) {
+        .section {
+          padding: 72px 20px;
+        }
+        .hero {
+          padding: 120px 20px 80px;
+        }
+        .hero h1 {
+          font-size: clamp(46px, 12vw, 96px);
+        }
+        .timeline {
+          padding-left: 32px;
+        }
+        .timeline::before {
+          left: 5px;
+        }
+        .timeline-node {
+          left: -32px;
+          width: 12px;
+          height: 12px;
+        }
+        .day-card {
+          padding: 24px 20px;
+        }
+        .day-item {
+          flex-direction: column;
+          gap: 4px;
+        }
+        .day-time {
+          min-width: auto;
+        }
+        .info-grid,
+        .dress-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .participants-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .talk-meta {
+          flex-direction: column;
+          gap: 8px;
+        }
+        .exclusive-box {
+          padding: 22px;
+        }
+        .app-banner {
+          padding: 28px 20px;
+        }
+        .hero-scroll-hint {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background -->
+    <div class="bg-gradient"></div>
+
+    <!-- NAV -->
+    <nav class="nav" id="mainNav">
+      <div class="nav-inner">
+        <img src="assets/comp-logo.png" alt="Comp" class="nav-logo" />
+        <a href="#agenda" class="nav-link">Agenda</a>
+        <a href="#info" class="nav-link">Info</a>
+        <a href="#dresscode" class="nav-link">Dress Code</a>
+        <a href="#evento" class="nav-link">Evento</a>
+        <a href="#contatos" class="nav-link">Contatos</a>
+        <a href="#participantes" class="nav-link">Participantes</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-rings">
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-ring"></div>
+      </div>
+      <div class="hero-orb hero-orb--gold"></div>
+      <div class="hero-orb hero-orb--red"></div>
+
+      <img
+        src="assets/tr26-logo.svg"
+        alt="Total Rewards'26"
+        class="hero-tr-logo"
+      />
+      <div class="hero-badge">
+        <i data-lucide="sparkles" style="width: 14px; height: 14px"></i>
+        Comp Experience
+      </div>
+      <h1>Total<br />Rewards<span>'26</span></h1>
+      <p class="hero-sub">
+        O guia da Comp para a maior conferência de Remuneração e Benefícios do
+        mundo.
+      </p>
+      <div class="hero-details">
+        <div class="hero-detail">
+          <i data-lucide="calendar"></i> 19–24 de abril, 2026
+        </div>
+        <div class="hero-detail">
+          <i data-lucide="map-pin"></i> San Antonio, Texas
+        </div>
+        <div class="hero-detail">
+          <i data-lucide="users"></i> Delegação Comp
+        </div>
+      </div>
+      <img src="assets/comp-logo.png" alt="Comp" class="hero-comp-logo" />
+
+      <div class="hero-scroll-hint">
+        <span>Explore</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- AGENDA -->
+    <section class="section" id="agenda">
+      <div class="reveal">
+        <p class="section-label">Programação</p>
+        <h2 class="section-title">Agenda dia a dia</h2>
+        <p class="section-desc">
+          Seis dias de conteúdo, networking e experiências exclusivas em San
+          Antonio.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <!-- DOM 19 -->
+        <div class="timeline-day highlight reveal">
+          <div class="timeline-node"></div>
+          <div class="day-card highlight">
+            <div class="day-header">
+              <span class="day-date">Dom 19/04</span>
+              <span class="day-label">Chegada + Surpresa</span>
+            </div>
+            <div class="day-items">
+              <div class="day-item">
+                <span class="day-time">Dia</span>
+                <div class="day-content">
+                  <p>
+                    Chegada em Austin.
+                    <strong>Transfer para San Antonio</strong> (~1h de carro)
+                    será combinado individualmente — podendo ser compartilhado
+                    com outros convidados. Alguns participantes chegarão no
+                    sábado, dia 18.
+                  </p>
+                  <p style="margin-top: 4px">Check-in no hotel.</p>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">Tarde</span>
+                <div class="day-content">
+                  <p>
+                    O congresso
+                    <strong>Total Rewards já estará em andamento</strong>, com
+                    uma boa programação de palestras e sessões. Alguns
+                    participantes optam por descansar da viagem neste dia —
+                    fique à vontade para escolher.
+                  </p>
+                  <span class="tag tag-waw">WorldatWork</span>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">Noite</span>
+                <div class="day-content">
+                  <div class="exclusive-box">
+                    <h4>
+                      <i
+                        data-lucide="star"
+                        style="width: 16px; height: 16px; color: var(--gold)"
+                      ></i>
+                      Atividade exclusiva Comp Experience
+                    </h4>
+                    <p>
+                      Preparamos algo especial para o grupo. Detalhes em breve —
+                      mas já adiantamos: será uma experiência única que só vocês
+                      terão acesso. Fiquem animados!
+                    </p>
+                  </div>
+                  <span class="tag tag-comp">Comp Experience</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEG 20 -->
+        <div class="timeline-day reveal">
+          <div class="timeline-node"></div>
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-date">Seg 20/04</span>
+              <span class="day-label">Congresso — Dia 1</span>
+            </div>
+            <div class="day-items">
+              <div class="day-item">
+                <span class="day-time">Dia</span>
+                <div class="day-content">
+                  <p>
+                    <strong>Congresso Total Rewards</strong> — dia inteiro de
+                    palestras e networking no Henry B. Gonzalez Convention
+                    Center.
+                  </p>
+                  <span class="tag tag-waw">WorldatWork</span>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">~21h30</span>
+                <div class="day-content">
+                  <p>
+                    <strong>Festa oficial WorldatWork</strong> — aberta a todos
+                    os participantes. Música, drinks e networking em grande
+                    escala.
+                  </p>
+                  <span class="tag tag-waw">WorldatWork</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TER 21 -->
+        <div class="timeline-day highlight reveal">
+          <div class="timeline-node"></div>
+          <div class="day-card highlight">
+            <div class="day-header">
+              <span class="day-date">Ter 21/04</span>
+              <span class="day-label">Congresso — Dia 2</span>
+            </div>
+            <div class="day-items">
+              <div class="day-item">
+                <span class="day-time">Dia</span>
+                <div class="day-content">
+                  <p>
+                    <strong>Congresso Total Rewards</strong> — segundo dia de
+                    palestras e sessões.
+                  </p>
+                  <span class="tag tag-waw">WorldatWork</span>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">14:45</span>
+                <div class="day-content">
+                  <div class="talk-card">
+                    <img
+                      src="assets/comp-logo.png"
+                      alt="Comp"
+                      class="talk-card-logo"
+                    />
+                    <h4>
+                      Live Demo of AI-Powered Compensation That Works: Budget
+                      Control Meets Talent Density
+                    </h4>
+                    <div class="talk-meta">
+                      <span
+                        ><i data-lucide="user"></i> Guilherme Tomazin —
+                        Comp</span
+                      >
+                      <span><i data-lucide="clock"></i> 14:45 – 15:15</span>
+                      <span
+                        ><i data-lucide="map-pin"></i> Showcase Stage A, The
+                        Expo, Street Level</span
+                      >
+                    </div>
+                  </div>
+                  <span class="tag tag-comp" style="margin-top: 12px"
+                    >Comp Experience</span
+                  >
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">Noite</span>
+                <div class="day-content">
+                  <p>
+                    <strong>Jantar da delegação brasileira</strong> — momento de
+                    networking com os profissionais de RH do Brasil presentes no
+                    evento.
+                  </p>
+                  <span class="tag tag-optional">Delegação BR</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUA 22 -->
+        <div class="timeline-day highlight reveal">
+          <div class="timeline-node"></div>
+          <div class="day-card highlight">
+            <div class="day-header">
+              <span class="day-date">Qua 22/04</span>
+              <span class="day-label">Congresso + Experiência Comp</span>
+            </div>
+            <div class="day-items">
+              <div class="day-item">
+                <span class="day-time">Manhã</span>
+                <div class="day-content">
+                  <p>
+                    <strong>Congresso Total Rewards</strong> — último dia de
+                    palestras (até ~12h).
+                  </p>
+                  <span class="tag tag-waw">WorldatWork</span>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">14h</span>
+                <div class="day-content">
+                  <p>
+                    <strong
+                      >Visita técnica — Fábrica International Motors
+                      (Scania)</strong
+                    >. Visita guiada a uma fábrica de caminhões com discussão
+                    sobre desafios de pessoas e remuneração.
+                  </p>
+                  <span class="tag tag-optional">Opcional</span>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">Noite</span>
+                <div class="day-content">
+                  <div class="exclusive-box">
+                    <h4>
+                      <i
+                        data-lucide="star"
+                        style="width: 16px; height: 16px; color: var(--gold)"
+                      ></i>
+                      Experiência exclusiva Comp
+                    </h4>
+                    <p>
+                      <strong>Fiesta de San Antonio</strong> — o maior festival
+                      anual da cidade. Barcos com mariachi navegando pelo rio,
+                      música ao vivo, comida local e uma energia única. Um
+                      evento que acontece apenas uma vez por ano, e nós
+                      reservamos um lugar especial para o nosso grupo na beira
+                      do rio.
+                    </p>
+                  </div>
+                  <span class="tag tag-comp">Comp Experience</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUI 23 -->
+        <div class="timeline-day reveal">
+          <div class="timeline-node"></div>
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-date">Qui 23/04</span>
+              <span class="day-label">Visitas Técnicas</span>
+            </div>
+            <div class="day-items">
+              <div class="day-item">
+                <span class="day-time">Manhã</span>
+                <div class="day-content">
+                  <p>
+                    <strong>Visita técnica — Construtora</strong>. Empresa
+                    passando por remodelagem de remuneração e desafios de gestão
+                    de pessoas.
+                  </p>
+                  <span class="tag tag-optional">Opcional</span>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">12h</span>
+                <div class="day-content">
+                  <p><strong>Almoço</strong> com a delegação.</p>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">14h</span>
+                <div class="day-content">
+                  <p>
+                    <strong>Visita ao Boeing Center</strong> — Hub de tecnologia
+                    aeroespacial, cibersegurança e inovação. Inclui simuladores
+                    interativos e área da Boeing.
+                  </p>
+                  <span class="tag tag-optional">Opcional</span>
+                </div>
+              </div>
+              <div class="day-item">
+                <span class="day-time">Tarde</span>
+                <div class="day-content">
+                  <p><strong>Happy Hour</strong> após a visita.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEX 24 -->
+        <div class="timeline-day reveal">
+          <div class="timeline-node"></div>
+          <div class="day-card">
+            <div class="day-header">
+              <span class="day-date">Sex 24/04</span>
+              <span class="day-label">Retorno</span>
+            </div>
+            <div class="day-items">
+              <div class="day-item">
+                <span class="day-time">Manhã</span>
+                <div class="day-content">
+                  <p>
+                    <strong>Check-out</strong> do hotel. Transfer de retorno
+                    será combinado individualmente.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFORMAÇÕES PRÁTICAS -->
+    <section class="section" id="info">
+      <div class="reveal">
+        <p class="section-label">Informações</p>
+        <h2 class="section-title">O que você precisa saber</h2>
+        <p class="section-desc">
+          Tudo sobre transporte, hospedagem, clima e logística para sua viagem.
+        </p>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="plane"></i></div>
+          <h3>Transporte</h3>
+          <p>
+            Chegada pelo <strong>Aeroporto de Austin (AUS)</strong>. O transfer
+            Austin → San Antonio (~1h de carro) será combinado individualmente —
+            podendo ser compartilhado com outros convidados do grupo.
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="bed"></i></div>
+          <h3>Hospedagem</h3>
+          <p>
+            <strong>SpringHill Suites by Marriott</strong><br />411 Bowie
+            Street, San Antonio, TX 78205<br />
+            <span class="distance-badge"
+              ><i
+                data-lucide="footprints"
+                style="width: 12px; height: 12px"
+              ></i>
+              ~7 min a pé</span
+            >
+            <span class="distance-badge"
+              ><i data-lucide="car" style="width: 12px; height: 12px"></i> ~3
+              min</span
+            >
+            <br /><br />
+            <strong>Fairfield Inn & Suites by Marriott</strong><br />620 S Santa
+            Rosa, San Antonio, TX 78204<br />
+            <span class="distance-badge"
+              ><i
+                data-lucide="footprints"
+                style="width: 12px; height: 12px"
+              ></i>
+              ~12 min a pé</span
+            >
+            <span class="distance-badge"
+              ><i data-lucide="car" style="width: 12px; height: 12px"></i> ~5
+              min</span
+            >
+            <br /><br />
+            <em style="color: var(--gray-500); font-size: 13px"
+              >Distâncias até o Henry B. Gonzalez Convention Center. Seu hotel
+              será informado individualmente.</em
+            >
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="building-2"></i></div>
+          <h3>Local do Evento</h3>
+          <p>
+            <strong>Henry B. Gonzalez Convention Center</strong><br />900 E.
+            Market Street<br />San Antonio, TX 78205<br /><br />
+            <a
+              href="https://maps.google.com/?q=Henry+B+Gonzalez+Convention+Center+San+Antonio"
+              target="_blank"
+              >Abrir no Google Maps →</a
+            >
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="clock"></i></div>
+          <h3>Fuso Horário</h3>
+          <p>
+            San Antonio opera no <strong>Central Time (CT)</strong>.<br /><br />
+            <strong>2 horas atrás de Brasília.</strong><br />
+            Quando for 12h em São Paulo, será 10h em San Antonio.
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="sun"></i></div>
+          <h3>Clima</h3>
+          <p>
+            Abril em San Antonio: <strong>20°C a 30°C</strong>. Sol na maior
+            parte do tempo com possibilidade de chuvas rápidas. Ar-condicionado
+            muito forte nos ambientes internos dos EUA — leve um casaco leve.
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="credit-card"></i></div>
+          <h3>Moeda e Transporte Local</h3>
+          <p>
+            Dólar americano (USD). Cartão de crédito internacional aceito em
+            praticamente todos os lugares.
+            <strong>Gorjeta padrão: 18-20%</strong> em restaurantes.<br /><br />
+            <strong>Uber</strong>, <strong>Lyft</strong> e
+            <strong>Waymo</strong> (carros autônomos — sem motorista!) funcionam
+            em San Antonio. O Waymo cobre a área do centro e do aeroporto, com
+            tarifas similares ao Uber — e é uma experiência imperdível.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DRESS CODE -->
+    <section class="section" id="dresscode">
+      <div class="reveal">
+        <p class="section-label">Dress Code</p>
+        <h2 class="section-title">O que vestir em cada ocasião</h2>
+        <p class="section-desc">
+          Do congresso às experiências ao ar livre, cada momento pede um estilo.
+        </p>
+      </div>
+
+      <div class="dress-grid">
+        <div class="dress-card reveal">
+          <div class="dress-emoji">👔</div>
+          <h3>Congresso</h3>
+          <p>
+            Business casual. Blazer opcional. Calças sociais ou chinos,
+            camisa/blusa.
+          </p>
+        </div>
+        <div class="dress-card reveal">
+          <div class="dress-emoji">🥂</div>
+          <h3>Jantares e Happy Hours</h3>
+          <p>
+            Smart casual. Um pouco mais arrumado que o dia — mas sem exageros.
+          </p>
+        </div>
+        <div class="dress-card reveal">
+          <div class="dress-emoji">🎉</div>
+          <h3>Fiesta de San Antonio</h3>
+          <p>
+            Casual e confortável. Você vai andar bastante ao ar livre. Sapato
+            confortável.
+          </p>
+        </div>
+        <div class="dress-card reveal">
+          <div class="dress-emoji">🏭</div>
+          <h3>Visitas Técnicas</h3>
+          <p>
+            Casual confortável. <strong>Sapato fechado obrigatório</strong> para
+            as fábricas.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-card reveal" style="margin-top: 24px">
+        <div class="info-icon"><i data-lucide="briefcase"></i></div>
+        <h3>O que levar na mala</h3>
+        <p>
+          ☀️ Protetor solar (sol forte no Texas)<br />
+          🔌 Adaptador de tomada (padrão americano tipo A/B)<br />
+          💊 Remédios de uso pessoal<br />
+          🧥 Casaco leve (ar-condicionado forte nos EUA)<br />
+          👟 Sapato confortável para caminhadas<br />
+          👞 Sapato fechado para visitas técnicas
+        </p>
+      </div>
+    </section>
+
+    <!-- GUIA EVENTO -->
+    <section class="section" id="evento">
+      <div class="reveal">
+        <p class="section-label">WorldatWork</p>
+        <h2 class="section-title">Guia do evento</h2>
+        <p class="section-desc">
+          Tudo sobre o congresso, o stand da Comp e como aproveitar ao máximo.
+        </p>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="globe"></i></div>
+          <h3>Sobre o Total Rewards</h3>
+          <p>
+            A maior conferência de remuneração e rewards do mundo, organizada
+            pela WorldatWork. Milhares de profissionais de RH, palestras de
+            ponta e networking global.<br /><br />
+            <a href="https://totalrewards.worldatwork.org/2026" target="_blank"
+              >Site oficial →</a
+            >
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="map"></i></div>
+          <h3>Stand da Comp</h3>
+          <p>
+            A Comp estará presente com um stand na área de exposição (The Expo).
+            Passe por lá para conhecer a equipe, ver demos ao vivo e trocar
+            ideias. Localização exata disponível no app do evento.
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="lightbulb"></i></div>
+          <h3>Dica: Monte sua Agenda</h3>
+          <p>
+            Use a função <strong>"My Agenda"</strong> no app do evento para
+            montar sua grade personalizada de palestras. O congresso tem muitas
+            sessões simultâneas — vale planejar com antecedência.
+          </p>
+        </div>
+
+        <div class="info-card reveal">
+          <div class="info-icon"><i data-lucide="calendar-check"></i></div>
+          <h3>Programação Oficial</h3>
+          <p>
+            Confira todas as sessões, speakers e horários na programação oficial
+            da WorldatWork.<br /><br />
+            <a
+              href="https://totalrewards.worldatwork.org/2026/sessions"
+              target="_blank"
+              >Ver programação →</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="app-banner reveal">
+        <i
+          data-lucide="smartphone"
+          style="width: 40px; height: 40px; color: var(--gold)"
+        ></i>
+        <h3>App do Evento</h3>
+        <p>
+          Baixe o app <strong>"WorldatWork Meetings"</strong> para montar sua
+          agenda, ver o mapa e conectar com outros participantes.
+        </p>
+        <div class="app-stores">
+          <a
+            href="https://apps.apple.com/app/worldatwork-meetings/id1489014427"
+            target="_blank"
+            class="store-btn"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"
+              />
+            </svg>
+            App Store
+          </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.eventmobi.worldatwork"
+            target="_blank"
+            class="store-btn"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M3.609 1.814L13.792 12 3.609 22.186a.996.996 0 01-.609-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-2.302 2.302L15.396 12l2.302-2.492zM5.864 2.658L16.8 8.991l-2.302 2.302L5.864 2.658z"
+              />
+            </svg>
+            Google Play
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATOS -->
+    <section class="section" id="contatos">
+      <div class="reveal">
+        <p class="section-label">Suporte</p>
+        <h2 class="section-title">Contatos do time Comp</h2>
+        <p class="section-desc">
+          Qualquer dúvida ou necessidade durante o evento, fale com a gente.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <a
+          href="https://wa.me/5511934596947"
+          target="_blank"
+          class="contact-card reveal"
+        >
+          <img src="assets/team-7.png" alt="Tiago" class="contact-avatar" />
+          <div class="contact-info">
+            <h3>Tiago Antoniolli</h3>
+            <p>Organizador</p>
+          </div>
+          <div class="contact-wa">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+          </div>
+        </a>
+        <a
+          href="https://wa.me/5512996146443"
+          target="_blank"
+          class="contact-card reveal"
+        >
+          <img src="assets/team-11.png" alt="Cleiton" class="contact-avatar" />
+          <div class="contact-info">
+            <h3>Cleiton Rodrigues</h3>
+            <p>Head of Growth</p>
+          </div>
+          <div class="contact-wa">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+          </div>
+        </a>
+        <a
+          href="https://wa.me/5511994644306"
+          target="_blank"
+          class="contact-card reveal"
+        >
+          <img src="assets/team-8.png" alt="Ducas" class="contact-avatar" />
+          <div class="contact-info">
+            <h3>Filipe Ducas</h3>
+            <p>Comp</p>
+          </div>
+          <div class="contact-wa">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+          </div>
+        </a>
+        <a
+          href="https://wa.me/5517991367226"
+          target="_blank"
+          class="contact-card reveal"
+        >
+          <img src="assets/team-9.png" alt="Gabi" class="contact-avatar" />
+          <div class="contact-info">
+            <h3>Gabriela Guidugli</h3>
+            <p>Comp</p>
+          </div>
+          <div class="contact-wa">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+          </div>
+        </a>
+        <a
+          href="https://wa.me/5511975964417"
+          target="_blank"
+          class="contact-card reveal"
+        >
+          <img src="assets/team-6.png" alt="Tomazin" class="contact-avatar" />
+          <div class="contact-info">
+            <h3>Guilherme Tomazin</h3>
+            <p>Comp</p>
+          </div>
+          <div class="contact-wa">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+          </div>
+        </a>
+        <a
+          href="https://wa.me/17867193329"
+          target="_blank"
+          class="contact-card reveal"
+        >
+          <img src="assets/team-10.png" alt="Dino" class="contact-avatar" />
+          <div class="contact-info">
+            <h3>Dino Pieczynski</h3>
+            <p>Comp</p>
+          </div>
+          <div class="contact-wa">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- EXCLUSIVE NOTE -->
+    <div class="exclusive-note reveal">
+      <p>
+        Esta experiência foi
+        <span class="gold">pensada de forma especial e exclusiva</span> pela
+        Comp para um grupo seleto de participantes. Cada detalhe foi
+        cuidadosamente planejado para que vocês aproveitem ao máximo o Total
+        Rewards'26 — dentro e fora do congresso.
+      </p>
+    </div>
+
+    <!-- PARTICIPANTES -->
+    <section class="section" id="participantes">
+      <div class="reveal">
+        <p class="section-label">Grupo Exclusivo</p>
+        <h2 class="section-title">Participantes da Comp Experience</h2>
+        <p class="section-desc">
+          Os profissionais que fazem parte desta experiência exclusiva.
+        </p>
+      </div>
+
+      <div class="participants-grid">
+        <a
+          href="https://www.linkedin.com/in/alexandre-benatti-louren%C3%A7o/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">AB</div>
+          <h4>Alexandre Benatti</h4>
+          <p>T-Systems</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/alinelenhartnesi/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">AL</div>
+          <h4>Aline Lenhart</h4>
+          <p>Logcomex</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://br.linkedin.com/in/apoena-cesar-martins-08b5041"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">AM</div>
+          <h4>Apoena Martins</h4>
+          <p>Celcoin</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/augusto-strutz-b-de-paula-a9a641141/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">AS</div>
+          <h4>Augusto Strutz</h4>
+          <p>Hotmart</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/camillamendes/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">CM</div>
+          <h4>Camilla Mendes</h4>
+          <p>Conta Simples</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/fernanda-cristine-pess/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">FP</div>
+          <h4>Fernanda Pess</h4>
+          <p>PicPay</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://br.linkedin.com/in/gabriel-ornellas-aa4b7911"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">GO</div>
+          <h4>Gabriel Ornellas</h4>
+          <p>Stark Bank</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://br.linkedin.com/in/larissa-vivas-a62473131"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">LV</div>
+          <h4>Larissa Vivas</h4>
+          <p>Asper</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/luizacsantos/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">LR</div>
+          <h4>Luiza Rubio</h4>
+          <p>Nomad</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/marianagoncalvesousa/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">MG</div>
+          <h4>Mariana Gonçalves</h4>
+          <p>Sankhya</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/rafaelalexandredepaula/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">RA</div>
+          <h4>Rafael Alexandre</h4>
+          <p>Dock</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://br.linkedin.com/in/rafaela-basto-b0ab477a"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">RB</div>
+          <h4>Rafaela Basto</h4>
+          <p>Avenue</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/rodrigo-lakatos-a8739423/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">RL</div>
+          <h4>Rodrigo Lakatos</h4>
+          <p>Hotmart</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+        <a
+          href="https://www.linkedin.com/in/tatiana-gabarron-97237217/"
+          target="_blank"
+          class="participant-card reveal"
+        >
+          <div class="participant-avatar">TG</div>
+          <h4>Tatiana Gabarron</h4>
+          <p>Ebanx</p>
+          <span class="participant-li"
+            ><svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+              />
+            </svg>
+            LinkedIn</span
+          >
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <img src="assets/comp-logo.png" alt="Comp" class="footer-logo" />
+      <p>
+        Comp Experience — Total Rewards'26<br />San Antonio, TX — Abril 2026
+      </p>
+    </footer>
+
+    <script>
+      // Intersection Observer for reveal animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -60px 0px" },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // Nav scroll effect
+      const nav = document.getElementById("mainNav");
+      let lastScroll = 0;
+      window.addEventListener(
+        "scroll",
+        () => {
+          const scrollY = window.scrollY;
+          if (scrollY > 80) {
+            nav.classList.add("scrolled");
+          } else {
+            nav.classList.remove("scrolled");
+          }
+          lastScroll = scrollY;
+        },
+        { passive: true },
+      );
+
+      // Active nav link based on scroll
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-link");
+      const navObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              navLinks.forEach((link) => {
+                link.classList.toggle(
+                  "active",
+                  link.getAttribute("href") === "#" + entry.target.id,
+                );
+              });
+            }
+          });
+        },
+        { threshold: 0.3, rootMargin: "-80px 0px -50% 0px" },
+      );
+      sections.forEach((section) => navObserver.observe(section));
+
+      // Initialize Lucide icons
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
