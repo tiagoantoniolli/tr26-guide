@@ -1,322 +1,140 @@
 <!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Claude Starter Kit — Verena</title>
 <style>
-:root{--bg:#f3f0ea;--paper:#fffdf9;--paper2:#faf7f1;--ink:#1c1a17;--muted:#706b63;--line:#ded8ce;--accent:#c7633f;--accent2:#7a4b3a;--soft:#f4e8df;--soft2:#ece7df;--nav:#171512;--green:#e8f3e9;--yellow:#fff1d7;--red:#f8e5e1;--shadow:0 18px 50px rgba(35,27,19,.08)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% 0%,rgba(199,99,63,.07),transparent 28%),linear-gradient(180deg,#f8f5ef 0,#f3f0ea 460px);color:var(--ink);font:15.5px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif}
-a{color:var(--accent);text-underline-offset:3px}code,pre{font-family:"Cascadia Code","SFMono-Regular",Consolas,Menlo,monospace}
-.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#171512 0%,#28221d 72%,#3b281f 100%);color:white;padding:78px 24px 70px;border-bottom:1px solid #3b342e}
-.hero:before{content:"";position:absolute;inset:-200px -120px auto auto;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(211,118,80,.25),rgba(211,118,80,0) 68%)}
-.hero .wrap{position:relative;max-width:1180px;margin:auto}.kicker{text-transform:uppercase;letter-spacing:.17em;font-size:11px;font-weight:750;color:#d8b6a4}
-h1{font-size:56px;line-height:1.0;letter-spacing:-.04em;margin:14px 0 18px;max-width:900px}.hero p{font-size:20px;max-width:860px;color:#ded7cf;margin:0}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}.badge{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.055);border-radius:999px;padding:7px 11px;font-size:12px;color:#f4ece5;backdrop-filter:blur(6px)}
-.layout{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:250px minmax(0,1fr);gap:34px;padding:38px 24px 88px}
-aside{position:sticky;top:18px;align-self:start;background:rgba(255,253,249,.93);border:1px solid var(--line);box-shadow:0 12px 30px rgba(43,34,24,.05);border-radius:16px;padding:12px;backdrop-filter:blur(14px)}
-aside:before{content:"STARTER KIT";display:block;padding:7px 10px 11px;color:#9b9187;font-size:10px;font-weight:800;letter-spacing:.14em}
-aside a{display:block;color:#4a453f;text-decoration:none;padding:8px 10px;border-radius:9px;font-size:13px;border-left:2px solid transparent}aside a:hover{background:var(--soft);color:var(--ink);border-left-color:var(--accent)}
-main{min-width:0}section{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px 36px;margin-bottom:24px;box-shadow:var(--shadow)}
-section:target{outline:3px solid rgba(199,99,63,.13);outline-offset:3px}h2{font-size:30px;letter-spacing:-.025em;margin:0 0 16px}h2:after{content:"";display:block;width:42px;height:3px;background:var(--accent);border-radius:99px;margin-top:11px}
-h3{font-size:19px;margin:28px 0 10px;letter-spacing:-.01em}h4{margin:20px 0 7px}p{margin:8px 0 13px}
-.callout{border:1px solid #ead2c6;border-left:5px solid var(--accent);background:linear-gradient(90deg,#fbf0e9,#fffaf5);padding:16px 18px;border-radius:10px;margin:18px 0}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.card{border:1px solid var(--line);border-radius:13px;padding:17px;background:linear-gradient(180deg,#fff,#fbf8f3);box-shadow:0 7px 18px rgba(44,35,26,.035)}.card strong{display:block;margin-bottom:6px;font-size:15px}
-table{width:100%;border-collapse:separate;border-spacing:0;margin:15px 0;font-size:14px;border:1px solid var(--line);border-radius:11px;overflow:hidden}th,td{border-bottom:1px solid var(--line);text-align:left;vertical-align:top;padding:11px 10px}tr:last-child td{border-bottom:0}th{background:#f4efe8;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:#615b54}tbody tr:hover td{background:#fdfaf6}
-pre{white-space:pre-wrap;background:linear-gradient(180deg,#211f1c,#191815);color:#eee7de;padding:18px;border-radius:12px;overflow:auto;font-size:12.5px;line-height:1.55;border:1px solid #3b3731;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
-.copy{float:right;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px;cursor:pointer;font-size:12px;font-weight:650;color:#544d46}.copy:hover{background:var(--soft);border-color:#d1b9ac}
-.pill{display:inline-block;padding:3px 8px;border-radius:999px;font-size:10.5px;font-weight:800;letter-spacing:.03em}.green{background:var(--green)}.yellow{background:var(--yellow)}.red{background:var(--red)}
-.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:17px 0}.flow span{background:#f4efe8;border:1px solid var(--line);padding:9px 11px;border-radius:9px;font-weight:650;font-size:13px}.flow b{color:#a39b91}
-.check{padding-left:22px}.check li{margin:8px 0}.small{color:var(--muted);font-size:13px}.skill{border-top:1px solid var(--line)}.skill:first-of-type{border-top:0}.skill summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:48px 1fr 24px;align-items:center;padding:16px 3px;font-weight:700}.skill summary:hover{color:var(--accent)}.skill summary::-webkit-details-marker{display:none}.num{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:800}.chev{font-size:23px;color:var(--muted);transition:.18s transform}.skill[open] .chev{transform:rotate(45deg)}.skill-body{padding-bottom:20px}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.os-card{display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:start;background:linear-gradient(135deg,#f6eee7,#fffaf6);border:1px solid #e4d2c6;border-radius:14px;padding:18px;margin:16px 0}.os-icon{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;background:#1d5fbf;color:white;font-size:28px;font-weight:800;box-shadow:0 8px 18px rgba(29,95,191,.18)}.mini-label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9a7563;margin-bottom:4px}
-.quickref{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.quickref div{background:#f7f2eb;border:1px solid var(--line);border-radius:11px;padding:13px}.quickref b{display:block;font-size:12px;color:#6a6259;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
-.footer{max-width:1180px;margin:0 auto 76px;padding:0 24px;color:var(--muted);font-size:12px}@media(max-width:900px){.layout{grid-template-columns:1fr;padding-top:22px}aside{position:relative;top:0}.grid,.two,.quickref{grid-template-columns:1fr}h1{font-size:42px}section{padding:25px 21px}}
-</style>
-</head>
+:root{--bg:#f7f4ef;--paper:#fffdf9;--ink:#201d19;--muted:#6e6860;--line:#e3ddd4;--brand:#c65f3c;--soft:#f7e9df;--green:#eaf4eb;--yellow:#fff2d9;--shadow:0 18px 50px rgba(43,31,20,.07)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.62 "Segoe UI",Inter,Arial,sans-serif}a{color:var(--brand);text-underline-offset:3px}code,pre{font-family:"Cascadia Code",Consolas,monospace}
+.hero{background:radial-gradient(circle at 80% -15%,#704230 0,transparent 33%),linear-gradient(135deg,#171512,#2b241e);color:#fff;padding:72px 24px 62px}.wrap{max-width:1060px;margin:auto}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.17em;font-weight:800;color:#d9b4a3}h1{font-size:55px;line-height:1;letter-spacing:-.045em;max-width:850px;margin:14px 0 18px}.hero p{max-width:820px;font-size:20px;color:#ded6ce}.promise{display:inline-block;margin-top:18px;padding:9px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);font-size:13px}
+.layout{max-width:1150px;margin:auto;display:grid;grid-template-columns:220px 1fr;gap:28px;padding:30px 22px 80px}nav{position:sticky;top:18px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:15px;padding:12px;box-shadow:var(--shadow)}nav strong{display:block;padding:7px 9px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#988f86}nav a{display:block;text-decoration:none;color:#514b44;padding:8px 9px;border-radius:8px;font-size:13px}nav a:hover{background:var(--soft)}
+section{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:33px;margin-bottom:22px;box-shadow:var(--shadow)}section.start{background:linear-gradient(135deg,#fff4ec,#fffdf9);border-color:#ead3c7}h2{font-size:30px;line-height:1.15;letter-spacing:-.025em;margin:0 0 13px}h3{font-size:19px;margin:25px 0 9px}.lead{font-size:18px;color:#514b44}
+.steps{display:grid;gap:11px;margin:18px 0}.step{display:grid;grid-template-columns:42px 1fr;gap:13px;border:1px solid var(--line);border-radius:13px;padding:14px;background:#fff}.n{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:var(--brand);color:#fff;font-weight:800}.step b{display:block}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{border:1px solid var(--line);border-radius:13px;padding:17px;background:#fff}.card small{display:inline-block;background:var(--soft);padding:3px 7px;border-radius:999px;text-transform:uppercase;font-weight:800;letter-spacing:.05em;font-size:9px}.card b{display:block;font-size:18px;margin:8px 0 4px}
+.good,.warn{padding:14px 16px;border-radius:8px;margin:15px 0}.good{border-left:4px solid #6da873;background:var(--green)}.warn{border-left:4px solid #da9b36;background:var(--yellow)}
+pre{white-space:pre-wrap;background:#1e1b18;color:#eee7df;border-radius:11px;padding:16px;overflow:auto;font-size:12.5px;line-height:1.55}table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:14px 0;font-size:14px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f4efe8;font-size:11px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}ul,ol{padding-left:22px}li{margin:7px 0}
+.folder{font-size:13px}.prompt{border-top:1px solid var(--line)}.prompt:first-child{border-top:0}.prompt summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:42px 1fr 22px;align-items:center;padding:15px 0}.prompt summary::-webkit-details-marker{display:none}.prompt summary span{color:var(--brand);font-weight:800}.prompt summary i{font-style:normal;font-size:22px;color:#8f877f}.prompt[open] summary i{transform:rotate(45deg)}.prompt>div{padding-bottom:17px}.prompt button,.btn{float:right;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:700;color:#514b44}.download{display:inline-block;text-decoration:none;background:var(--brand);color:#fff;padding:10px 14px;border-radius:9px;font-weight:750;margin:5px 0 10px}
+.flow{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.flow span{border:1px solid var(--line);background:#f4efe8;padding:8px 10px;border-radius:8px;font-size:13px;font-weight:650}.advanced{background:#fbfaf7}.label{display:inline-block;background:#ece7df;padding:4px 8px;border-radius:999px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;color:#756e66}.muted{color:var(--muted);font-size:13px}.footer{max-width:1060px;margin:0 auto 60px;padding:0 22px;color:var(--muted);font-size:12px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{position:relative;top:0}.cards{grid-template-columns:1fr}h1{font-size:42px}section{padding:24px 20px}}
+</style></head>
 <body>
-<header class="hero"><div class="wrap"><div class="kicker">Claude for Teams · Disputes & Arbitration</div><h1>Claude Starter Kit<br>para Verena</h1>
-<p>Um sistema operacional objetivo para usar Claude em contencioso e arbitragem com working sets controlados, rastreabilidade, versionamento e governança de dados.</p>
-<div class="badges"><span class="badge">Matter-centric</span><span class="badge">Evidence-backed</span><span class="badge">Version-controlled</span><span class="badge">10 skills</span></div></div></header>
+<header class="hero"><div class="wrap"><div class="eyebrow">Claude for Teams · advocacia · começando do zero</div><h1>Verena, comece por aqui.</h1><p>Este não é um manual de IA. É um passo a passo para você usar Claude no trabalho jurídico sem precisar entender tecnologia.</p><div class="promise">Primeiro resultado em ~15 min · Windows · Sem programação</div></div></header>
+<div class="layout"><nav><strong>Guia</strong>
+<a href="#agora">1. Faça agora</a><a href="#tres">2. Três coisas</a><a href="#project">3. Primeiro caso</a><a href="#organizar">4. Organizar documentos</a><a href="#skill">5. Criar Skills</a><a href="#pedir">6. Como pedir</a><a href="#prompts">7. 10 prompts</a><a href="#privacy">8. Privacidade</a><a href="#windows">9. Windows</a><a href="#later">10. Só depois</a></nav><main>
 
-<div class="layout">
-<aside>
-<a href="#modelo">1. Modelo mental</a><a href="#setup">2. Setup</a><a href="#matter">3. Matter architecture</a><a href="#docs">4. Document intake</a><a href="#sessions">5. Session protocol</a><a href="#version">6. Versionamento</a><a href="#privacy">7. Privacidade</a><a href="#obsidian">9. Obsidian</a><a href="#flows">9. Workflows</a><a href="#skills">10. Skills</a><a href="#routine">11. Rotina</a><a href="#sources">Fontes</a>
-</aside>
-<main>
+<section id="agora" class="start"><h2>1. Faça isso agora</h2><p class="lead">Nada de configurar um sistema complexo. Abra Claude e faça uma tarefa real.</p><div class="steps">
+<div class="step"><div class="n">1</div><div><b>Entre no workspace Team do escritório.</b> Não use uma conta pessoal para material profissional.</div></div>
+<div class="step"><div class="n">2</div><div><b>Pegue uma peça simples.</b> Preferencialmente algo já protocolado/público ou expressamente permitido pela política do escritório.</div></div>
+<div class="step"><div class="n">3</div><div><b>Anexe no Chat.</b> Clique em <strong>+</strong> → adicionar arquivo.</div></div>
+<div class="step"><div class="n">4</div><div><b>Escreva:</b><pre>Leia este documento como uma advogada de contencioso. Explique o que aconteceu, os principais argumentos, os pontos que merecem minha atenção e o que você não consegue concluir com segurança. Cite a página quando fizer uma afirmação importante.</pre></div></div>
+<div class="step"><div class="n">5</div><div><b>Converse com a resposta.</b> Pergunte “onde está isso?”, “isso é fato ou inferência?”, “qual é o melhor argumento contrário?”.</div></div>
+</div><div class="good"><b>Se você só fizer isso hoje, ótimo.</b> O objetivo é sentir como Claude trabalha antes de organizar qualquer coisa.</div></section>
 
-<section id="modelo"><h2>1. Modelo mental</h2>
-<div class="grid"><div class="card"><b>Chat</b><br>Interação curta e iterativa: argumento, resumo, revisão, redação.</div><div class="card"><b>Cowork / Claude</b><br>Tarefa multi-step: cruzar arquivos, chronology, dossiers, deliverables.</div><div class="card"><b>Claude Code</b><br>Automação técnica, lotes de arquivos, scripts. Aprenda depois.</div></div>
-<div class="callout"><b>Regra:</b> Claude é camada de análise e execução. Não é o repositório oficial do caso.</div>
-<div class="flow"><span>DMS oficial</span><b>→</b><span>working set</span><b>→</b><span>Claude Project</span><b>→</b><span>output revisado</span><b>→</b><span>DMS</span></div>
-</section>
+<section id="tres"><h2>2. Você só precisa entender 3 coisas</h2><div class="cards">
+<div class="card"><small>todo dia</small><b>Chat</b>Uma conversa. Use para ler, revisar, comparar, escrever e pensar junto.</div>
+<div class="card"><small>um por caso</small><b>Project</b>Uma sala dedicada a um processo/arbitragem. Claude mantém ali o contexto daquele caso.</div>
+<div class="card"><small>tarefas grandes</small><b>Cowork</b>Você entrega uma pasta e um objetivo; Claude executa várias etapas e trabalha com arquivos.</div>
+</div><div class="warn"><b>Ignore Claude Code.</b> Você não precisa dele para começar — nem de terminal, MCP, RAG ou qualquer outro termo técnico.</div></section>
 
-<section id="setup"><h2>2. Setup inicial</h2>
-<ol><li>Claude Desktop atualizado e workspace Team correto.</li><li>Global Instructions curtas.</li><li>1 Project por matter; nunca misturar clientes.</li><li>Project Instructions com partes, instituição/foro, lei, idioma, estágio, citation rules.</li><li>Pasta 05_CLAUDE no working copy do matter.</li><li>Começar com 4 skills: Onboarding, Chronology, Pleading Red Team e Session Closeout.</li></ol>
-<button class="copy" data-copy="global">Copy</button>
-<pre id="global">Sou advogada de contencioso complexo e arbitragem.
+<section id="project"><h2>3. Crie o primeiro Project de um caso</h2><p>Depois de testar o Chat, crie <b>1 Project para 1 caso</b>. Não misture clientes.</p><h3>Coloque poucos documentos no começo</h3><ul><li>contrato principal e aditivos relevantes;</li><li>Request for Arbitration / inicial;</li><li>Answer / contestação;</li><li>última peça relevante de cada lado;</li><li>procedural orders importantes;</li><li>chronology existente, se houver.</li></ul>
+<h3>Copie estas Project Instructions</h3><pre>Este Project é sobre [CLIENTE] v. [PARTE CONTRÁRIA].
+Nós representamos [CLIENTE].
+Instituição/foro: [___]
+Lei aplicável: [___]
+Estágio atual: [___]
 
-Priorize precisão sobre fluência. Nunca invente fatos, autoridades, citações, números de processo ou fontes.
+Nunca invente fatos ou fontes.
+Diferencie fato comprovado de alegação.
+Cite documento e página sempre que possível.
+Avise quando não conseguir concluir algo.
+Procure também fatos e argumentos contrários à nossa posição.</pre>
+<div class="good"><b>Não suba 2.000 documentos.</b> O Project começa pequeno. O restante entra conforme o trabalho exigir.</div></section>
 
-Separe:
-FACT = suportado por fonte;
-ALLEGATION = afirmação de parte/testemunha;
-INFERENCE = conclusão analítica;
-UNKNOWN = não estabelecido.
+<section id="organizar" class="start"><h2>4. Reúna todos os documentos de cada caso em uma pasta</h2><p class="lead">Aqui entra a organização. A ideia é simples: <b>1 caso = 1 pasta no Windows</b>. Tudo que estiver espalhado vai primeiro para uma pasta de entrada.</p>
+<h3>Crie assim</h3><pre class="folder">C:\Casos\Acme v Beta\
+├── 00_ENTRADA\
+├── 01_PECAS\
+├── 02_CONTRATOS_E_DOCUMENTOS_CHAVE\
+├── 03_PROVAS\
+├── 04_TESTEMUNHAS_E_PERITOS\
+├── 05_PROCESSUAL\
+├── 06_PESQUISA\
+└── 90_OUTPUTS_CLAUDE\</pre>
+<p><b>O único lugar que você precisa lembrar é 00_ENTRADA.</b> Achou um arquivo do caso? Jogue ali. Depois Claude organiza.</p>
+<h3>De onde vêm os documentos?</h3><table><tr><th>Fonte</th><th>O que fazer</th></tr>
+<tr><td><b>HD / Downloads / Desktop</b></td><td>Copie o que parece ser do caso para <code>00_ENTRADA</code>. Se usar Cowork, conecte somente as pastas necessárias.</td></tr>
+<tr><td><b>Outlook</b></td><td>Se o Microsoft 365 estiver conectado, peça ao Claude para procurar emails pelo nome das partes, número do caso, domínio e período. Baixe os anexos relevantes para <code>00_ENTRADA</code> quando necessário.</td></tr>
+<tr><td><b>OneDrive / SharePoint</b></td><td>Claude pode pesquisar o que você já tem permissão para acessar. Se quiser um corpus local único, copie/sincronize apenas os arquivos do caso para <code>00_ENTRADA</code>.</td></tr>
+<tr><td><b>iManage / NetDocuments / outro DMS</b></td><td>Se não houver integração aprovada, exporte os documentos selecionados para <code>00_ENTRADA</code>. O DMS continua sendo a fonte oficial.</td></tr></table>
+<div class="warn"><b>Não conecte o HD inteiro ao Cowork.</b> Dê acesso somente à pasta do caso e, quando necessário, à pasta-fonte onde você quer que ele procure.</div></section>
 
-Para fatos materiais, cite documento e página/seção quando possível.
-Se a fonte não provar exatamente a proposição, diga isso.
-Em research, prefira fonte primária e marque o que não foi verificado.
-Ao revisar nossa posição, procure também fatos e argumentos contrários.
-Outputs jurídicos são first drafts sujeitos a revisão humana.</pre>
-</section>
+<section id="skill"><h2>5. Instale uma Skill que organize a pasta para você</h2><p>Uma <b>Skill</b> é apenas uma instrução reutilizável. Em vez de ensinar toda vez “como eu quero que você organize meus casos”, você ensina uma vez e Claude reaplica.</p>
+<h3>Instale a Skill pronta</h3><a class="download" href="organizador-de-caso-skill.zip">Baixar “Organizador de Caso”</a>
+<ol><li>No Claude, vá a <b>Personalizar → Skills</b>.</li><li>Clique em <b>+ → Criar skill → Carregar uma skill</b>.</li><li>Escolha o ZIP acima.</li><li>Deixe a Skill ativada.</li><li>Se Skills não aparecer, peça ao owner do Team para confirmar que Skills + execução de código/criação de arquivos estão habilitadas.</li></ol>
+<div class="warn"><b>No Windows:</b> hoje você não consegue “gravar” uma Skill automaticamente pelo Cowork como no Mac. O caminho simples é upload do ZIP.</div>
+<h3>Depois, para organizar um caso, diga só isto</h3><pre>Organize a pasta deste caso.
 
-<section id="windows">
-<div class="mini-label">Windows-specific</div>
-<h2>3. Setup no Windows</h2>
-<div class="os-card"><div class="os-icon">⊞</div><div><strong>Para a Verena, Windows muda a configuração — não a metodologia.</strong><p>Claude Desktop, Chat, Cowork e Claude Code funcionam no Windows. O ponto importante é preparar corretamente o PC para Cowork e manter o acesso a arquivos estritamente limitado às pastas do matter.</p></div></div>
-<div class="quickref"><div><b>Sistema</b>Windows 10 ou superior</div><div><b>App</b>Claude Desktop atualizado</div><div><b>Cowork local</b>Virtual Machine Platform</div><div><b>Permissão</b>Admin para instalação completa</div></div>
-<h3>Checklist de instalação</h3>
-<ol class="check">
-<li>Instale a versão mais recente do <strong>Claude Desktop para Windows</strong>.</li>
-<li>Se Cowork não aparecer ou não conseguir trabalhar com arquivos locais, confirme com TI que a <strong>Virtual Machine Platform</strong> do Windows está habilitada.</li>
-<li>Em instalação individual, o suporte completo ao Cowork no desktop requer privilégios de administrador. Em notebook corporativo bloqueado, peça ao TI para instalar/implantar o app.</li>
-<li>Crie uma pasta dedicada de trabalho do Claude — por exemplo <code>C:\Legal\Claude-Working-Sets\</code> — em vez de conceder acesso amplo a Documents, OneDrive inteiro ou pastas de todos os clientes.</li>
-<li>Se o DMS sincroniza localmente via OneDrive/SharePoint, <strong>não trate a pasta sincronizada inteira como working set</strong>. Exponha somente os arquivos necessários para a tarefa.</li>
-</ol>
-<h3>Padrão de caminho no Windows</h3>
-<pre>C:\Legal\Matters\MATTER-CLIENT-SHORTNAME\
-├── 00_ADMIN\
-├── 01_CORE_RECORD\
-├── 02_EVIDENCE\
-├── 03_RESEARCH\
-├── 04_WORK_PRODUCT\
-├── 05_CLAUDE\
-│   ├── PROJECT_CORE_PACK\
-│   ├── SESSION_PACKS\
-│   ├── OUTPUTS\
-│   └── SESSION_LOG\
-└── 99_ARCHIVE\</pre>
-<h3>Team: uma limitação importante</h3>
-<div class="callout"><strong>Cowork ≠ “controle total do computador”.</strong> No Claude Team, ela pode usar Cowork e trabalhar com arquivos locais conectados. Porém o recurso de <em>computer use</em> que controla outros aplicativos pela interface gráfica continua indisponível para Team no momento. Portanto, não conte com Claude clicando livremente em Word, Outlook ou sistemas do escritório como parte do workflow padrão.</div>
-<h3>Browser e Chrome</h3>
-<p>No Team, controles de browser para Cowork existem e a Anthropic está disponibilizando um navegador integrado no Desktop, além da opção Claude in Chrome conforme configuração da organização. Para trabalho jurídico, a regra continua sendo <strong>menor privilégio</strong>: dê acesso somente quando a tarefa realmente exigir web ou um sistema específico.</p>
-</section>
+Primeiro inventarie o que já existe. Depois organize 00_ENTRADA nas pastas corretas, sem apagar nem sobrescrever originais.
 
-<section id="matter"><h2>3. Arquitetura do matter</h2>
-<pre>MATTER-[CLIENT]-[SHORTNAME]/
-├── 00_ADMIN/
-│   ├── Matter_Profile.md
-│   ├── Procedural_Calendar.xlsx
-│   └── Contacts_and_Roles.md
-├── 01_CORE_RECORD/
-│   ├── Contract_and_Amendments/
-│   ├── Notices_and_Key_Correspondence/
-│   ├── Pleadings/
-│   ├── Procedural_Orders/
-│   └── Key_Exhibits/
-├── 02_EVIDENCE/
-│   ├── Documents/
-│   ├── Witnesses/
-│   ├── Experts/
-│   └── Transcripts/
-├── 03_RESEARCH/
-├── 04_WORK_PRODUCT/
-├── 05_CLAUDE/
-│   ├── PROJECT_CORE_PACK/
-│   ├── SESSION_PACKS/
-│   ├── OUTPUTS/
-│   └── SESSION_LOG/
-└── 99_ARCHIVE/</pre>
-<h3>Core Pack persistente</h3>
-<p>Matter profile + issue map + core chronology + contrato/aditivos críticos + pleadings principais + procedural orders + key exhibits + witness/expert index + authorities realmente centrais.</p>
-<p><b>Não subir:</b> cada minuta, cada e-mail, o data room inteiro ou versões superseded “por via das dúvidas”.</p>
-</section>
+Crie um índice. Identifique duplicatas, versões antigas e arquivos cuja classificação é incerta.
 
-<section id="docs"><h2>4. Document intake</h2>
-<p>Antes do upload, mantenha um register:</p>
-<pre>Doc_ID | Filename | Date | Author | Recipient | Type | Issue | Privileged? | Version | Core_Pack?</pre>
-<div class="grid"><div class="card"><b>Tier 1 — Core</b><br>50–150 arquivos definidores do caso, persistentes no Project.</div><div class="card"><b>Tier 2 — Session</b><br>Arquivos específicos da tarefa atual.</div><div class="card"><b>Tier 3 — Corpus</b><br>Produção integral; somente quando a tarefa e a política justificarem.</div></div>
-<h3>Filename</h3><pre>YYYY-MM-DD_[DocType]_[Author-or-Party]_[ShortDescription]_[STATUS].[ext]
+Se o Microsoft 365 estiver conectado, procure também emails e documentos relacionados ao caso. Para qualquer anexo que você não consiga salvar automaticamente, faça uma checklist para eu baixar.</pre>
+<h3>O que a Skill faz</h3><ul><li>separa documentos por tipo;</li><li>cria um índice <code>CASE_INDEX.md</code>;</li><li>identifica duplicatas e versões;</li><li>lista documentos encontrados fora da pasta;</li><li>faz checklist de anexos de email que faltam;</li><li>aponta possíveis lacunas do record.</li></ul>
+<h3>Como criar qualquer outra Skill</h3><p>Quando perceber que está repetindo uma tarefa, peça ao próprio Claude:</p><pre>Quero transformar este workflow em uma Skill do Claude.
 
-2026-08-14_PO-07_Tribunal_Document-Production_FINAL.pdf
-2026-09-03_Witness-Statement_Silva_SIGNED.pdf
-2026-09-10_Memorial_Claimant_v07_WORKING.docx</pre>
-</section>
+Crie uma Skill simples, sem código, com um arquivo skill.md.
+Ela deve dizer:
+- quando deve ser usada;
+- quais inputs precisa;
+- passo a passo;
+- regras que nunca pode violar;
+- output esperado.
 
-<section id="sessions"><h2>5. Session protocol</h2>
-<p>Cada sessão relevante começa com um Session Brief e termina com Session Closeout.</p>
-<button class="copy" data-copy="brief">Copy</button>
-<pre id="brief">MATTER:
-TASK:
-DECISION / DELIVERABLE I NEED:
-WORKING SET:
-AUTHORITATIVE SOURCES:
-DO NOT USE:
-KNOWN FACTS / ASSUMPTIONS:
-OPEN QUESTIONS:
-OUTPUT FORMAT:
-PROCEDURAL CONTEXT:
-VERIFICATION STANDARD:
+Empacote em um ZIP pronto para eu carregar em Personalizar → Skills.</pre>
+<p class="muted">Skills funcionam melhor quando cada uma resolve uma tarefa específica. Não tente criar uma “Skill que faz tudo”.</p></section>
 
-Before starting, list the working set you actually read.
-At the end, run the Session Closeout skill.</pre>
-<h3>Session Pack</h3><pre>05_CLAUDE/SESSION_PACKS/2026-09-29_cross_silva/
-├── 00_SESSION_BRIEF.md
-├── 01_Witness_Statement.pdf
-├── 02_Key_Emails/
-├── 03_Prior_Pleadings/
-├── 04_Exhibits/
-└── 99_EXPECTED_OUTPUT.md</pre>
-<p>O pack permite reconstruir, meses depois, exatamente o que alimentou a análise.</p>
-</section>
+<section id="pedir"><h2>6. Como pedir coisas para Claude</h2><p class="lead">Esqueça “prompt engineering”. Delegue como delegaria para um advogado mais júnior.</p><div class="flow"><span>Contexto</span><b>+</b><span>O que você quer</span><b>+</b><span>Quais documentos</span><b>+</b><span>Como quer receber</span></div>
+<h3>Ruim</h3><pre>Analisa essa petição.</pre><h3>Bom</h3><pre>Representamos a Claimant. Este é nosso draft de Reply. Antes de eu mandar para o sócio, quero descobrir fragilidades. Leia o draft e a Defence anexada. Liste primeiro os 10 principais problemas, com página e explicação. Não reescreva ainda.</pre>
+<h3>Frases úteis</h3><ul><li>“Onde exatamente está isso no documento?”</li><li>“Isso é fato ou uma inferência sua?”</li><li>“Qual é o melhor argumento contra essa conclusão?”</li><li>“O que estou deixando de perceber?”</li><li>“Não reescreva ainda. Primeiro critique.”</li></ul></section>
 
-<section id="version"><h2>6. Versionamento</h2>
-<div class="callout"><b>Nunca:</b> “atualize a última versão”. Sempre nomeie a source version.</div>
-<table><tr><th>Status</th><th>Regra</th></tr><tr><td>WORKING</td><td>Editável, sempre gerando versão nova.</td></tr><tr><td>APPROVED</td><td>Nova alteração = nova versão.</td></tr><tr><td>FILED / SIGNED</td><td>Imutável; leitura apenas.</td></tr><tr><td>SUPERSEDED</td><td>Não usar salvo instrução expressa.</td></tr></table>
-<pre>2026-09-29_Memorial_Claimant_v08_WORKING.docx
-2026-09-30_Memorial_Claimant_v09_APPROVED.docx
-2026-10-01_Memorial_Claimant_FILED.pdf</pre>
-<p>Redline: preserve sempre base + redline + clean. O Session Log registra a versão usada.</p>
-</section>
+<section id="prompts"><h2>7. Dez prompts jurídicos prontos</h2><p>Abra apenas o que precisar. Copie, adapte os nomes e use.</p>
+<details class="prompt"><summary><span>01</span><b>Entender uma peça</b><i>+</i></summary>
+<div><button onclick="copyText('p1',this)">Copiar</button><pre id="p1">Leia este documento como uma advogada de contencioso. Explique: (1) o que aconteceu; (2) os principais argumentos; (3) os pontos que merecem minha atenção; (4) o que você não consegue concluir com segurança. Cite a página sempre que fizer uma afirmação importante.</pre></div></details>
+<details class="prompt"><summary><span>02</span><b>Comparar duas peças</b><i>+</i></summary>
+<div><button onclick="copyText('p2',this)">Copiar</button><pre id="p2">Compare estes dois documentos. Monte uma tabela com: tema, posição do Documento A, posição do Documento B, o que mudou, contradições ou pontos não respondidos e relevância prática. Depois indique os 5 pontos que eu deveria olhar primeiro.</pre></div></details>
+<details class="prompt"><summary><span>03</span><b>Montar uma cronologia</b><i>+</i></summary>
+<div><button onclick="copyText('p3',this)">Copiar</button><pre id="p3">Leia os documentos anexados e monte uma cronologia. Para cada evento: data, o que aconteceu, pessoas envolvidas, documento-fonte, página/seção e por que importa. Diferencie fato documentado de mera alegação. Não preencha lacunas por suposição.</pre></div></details>
+<details class="prompt"><summary><span>04</span><b>Revisar uma petição</b><i>+</i></summary>
+<div><button onclick="copyText('p4',this)">Copiar</button><pre id="p4">Revise este draft como um advogado sênior exigente. Primeiro NÃO reescreva. Aponte argumentos confusos, fatos sem suporte, repetições, saltos lógicos, argumentos da contraparte não respondidos e trechos que exageram a evidência. Organize por prioridade. Só depois proponha alterações.</pre></div></details>
+<details class="prompt"><summary><span>05</span><b>Red team da tese</b><i>+</i></summary>
+<div><button onclick="copyText('p5',this)">Copiar</button><pre id="p5">Atue como advogado da parte contrária. Faça o ataque mais forte possível ao nosso argumento: fatos contrários, premissas frágeis, inconsistências, interpretações alternativas e perguntas difíceis do tribunal. Depois volte ao nosso lado e proponha respostas.</pre></div></details>
+<details class="prompt"><summary><span>06</span><b>Preparar testemunha</b><i>+</i></summary>
+<div><button onclick="copyText('p6',this)">Copiar</button><pre id="p6">Analise somente os documentos relacionados a esta testemunha. Prepare: cronologia pessoal, documentos enviados/recebidos, decisões e reuniões, possíveis inconsistências, fatos dentro do conhecimento pessoal e perguntas para a entrevista. Diga qual documento motivou cada pergunta. Não invente memória.</pre></div></details>
+<details class="prompt"><summary><span>07</span><b>Preparar cross-examination</b><i>+</i></summary>
+<div><button onclick="copyText('p7',this)">Copiar</button><pre id="p7">Compare o witness statement com documentos, pleadings e demais materiais. Para cada ponto útil: o que queremos estabelecer, documento/declaração anterior, contradição, sequência curta de leading questions, risco de explicação e recomendação usar/reservar/descartar.</pre></div></details>
+<details class="prompt"><summary><span>08</span><b>Document production / Redfern</b><i>+</i></summary>
+<div><button onclick="copyText('p8',this)">Copiar</button><pre id="p8">Analise cada document request. Explique o que a outra parte procura, qual issue pretende provar, riscos de amplitude/ambiguidade/proporcionalidade, possíveis objeções, custodians/fontes prováveis e informação que falta. Não redija a objeção final ainda.</pre></div></details>
+<details class="prompt"><summary><span>09</span><b>Pesquisa jurídica verificável</b><i>+</i></summary>
+<div><button onclick="copyText('p9',this)">Copiar</button><pre id="p9">Ajude-me a pesquisar esta questão jurídica. Não invente casos, citações, números ou quotes. Prefira fontes primárias. Marque claramente qualquer autoridade não verificada. Entregue resposta curta, autoridades, links/fontes, posição contrária e o que ainda precisa ser pesquisado.</pre></div></details>
+<details class="prompt"><summary><span>10</span><b>Fechar uma sessão</b><i>+</i></summary>
+<div><button onclick="copyText('p10',this)">Copiar</button><pre id="p10">Resuma esta sessão para eu retomá-la amanhã: tarefa, documentos usados, conclusões importantes, pontos a verificar, decisões tomadas, próximos passos e arquivos/versões a salvar. Sinalize quando algo for inferência e não fato documental.</pre></div></details></section>
 
-<section id="privacy"><h2>7. Privacidade — Claude for Teams</h2>
-<p>Teams é produto comercial: a Anthropic informa que inputs/outputs não são usados para treinamento por padrão; a organização é a controladora e a Anthropic atua como processadora. Owners do workspace podem administrar/exportar dados.</p>
-<div class="two"><div class="card"><b>Bom</b><br>É muito mais defensável para trabalho corporativo que uma conta consumer.</div><div class="card"><b>Mas</b><br>Não elimina confidentiality, privilege, LGPD/GDPR, client terms ou regras arbitrais.</div></div>
-<h3>Regras práticas</h3>
-<ul><li>Documentos de cliente só se a política do escritório/cliente permitir.</li><li>Minimize o working set, sobretudo para privilege, segredo comercial e dados sensíveis.</li><li>Não usar feedback thumbs up/down em conversa confidencial sem saber a política: feedback enviado pode ser usado para melhoria/treinamento.</li><li>Conectores, browser e MCP: menor permissão possível.</li><li>Project sharing apenas para o case team.</li><li>Incognito não substitui governança; em Team, ainda há retenção e possibilidade de export organizacional.</li></ul>
-</section>
+<section id="privacy"><h2>8. Privacidade: a regra simples</h2><p>Claude for Teams é produto comercial. A Anthropic informa que, por padrão, inputs e outputs dos produtos comerciais não são usados para treinar os modelos.</p><div class="warn"><b>Isso não significa “pode subir tudo”.</b> A regra do escritório, as instruções do cliente, privilege, LGPD e regras do caso continuam valendo.</div>
+<ul><li>use sempre o workspace Team;</li><li>confirme a política de IA do escritório;</li><li>suba apenas o que precisa;</li><li>para material extremamente sensível, privileged, segredo comercial ou dado pessoal sensível, confirme a autorização antes;</li><li>não dê ao Cowork acesso a pastas de outros clientes.</li></ul></section>
 
-<section id="obsidian"><h2>8. Obsidian: use como knowledge layer</h2>
-<p><b>Não use como DMS.</b> Obsidian é ótimo para notas em Markdown, issue maps, witness pages, authorities e hearing notes.</p>
-<div class="two"><div class="card"><b>Vault: Personal Legal Knowledge</b><br>Jurisprudência pública, doutrina, templates, lessons learned, checklists.</div><div class="card"><b>Vault: Matters</b><br>Somente se aprovado. Índices e notas; evite replicar o corpus do cliente.</div></div>
-<pre>00_Dashboard/
-10_Matters/
-  Matter-X/
-    Matter.md
-    Issues/
-    Witnesses/
-    Hearings/
-    Research/
-20_Legal-Knowledge/
-30_Authorities/
-40_Templates/
-90_Archive/</pre>
-<p>O DMS guarda documentos; Obsidian guarda relações e conhecimento. Um Matter.md aponta para as fontes oficiais.</p>
-</section>
+<section id="windows"><h2>9. No Windows</h2><ul><li>Claude Desktop funciona no Windows 10 ou superior;</li><li>para Cowork trabalhar plenamente com arquivos locais, o Windows pode precisar da <b>Virtual Machine Platform</b> habilitada;</li><li>em notebook corporativo, TI pode precisar instalar/habilitar isso;</li><li>arquivos locais só ficam acessíveis ao Cowork enquanto o Desktop está aberto e a sessão tem a pasta conectada.</li></ul><div class="good"><b>Não precisa configurar Cowork no primeiro dia.</b> Chat no browser já é suficiente para começar.</div></section>
 
-<section id="flows"><h2>9. Workflows jurídicos</h2>
-<table><tr><th>Workflow</th><th>Input</th><th>Output</th><th>Human check</th></tr>
-<tr><td>Onboarding</td><td>Core Pack</td><td>Case map + gaps</td><td>Fato vs alegação</td></tr>
-<tr><td>Chronology</td><td>Tier 1 + issue docs</td><td>Evidence chronology</td><td>Datas e fontes</td></tr>
-<tr><td>Pleading audit</td><td>Draft + cited evidence</td><td>Red-team issue list</td><td>Judgment</td></tr>
-<tr><td>Witness prep</td><td>Statement + witness docs</td><td>Dossier + questions</td><td>Não fabricar memória</td></tr>
-<tr><td>Cross</td><td>Statement + record</td><td>Cross propositions</td><td>Risco estratégico</td></tr>
-<tr><td>Production</td><td>Redfern + issue map</td><td>Objections/search plan</td><td>Privilege</td></tr>
-<tr><td>Research</td><td>Question + sources</td><td>Verifiable memo</td><td>Toda autoridade</td></tr>
-<tr><td>Hearing</td><td>Transcript + exhibits</td><td>Admissions ledger</td><td>Pinpoints</td></tr></table>
-</section>
+<section id="later" class="advanced"><span class="label">Só depois que isso já estiver funcionando</span><h2>10. O que vem depois</h2><h3>Cowork</h3><p>Use quando a tarefa tiver várias etapas: “leia 60 documentos, encontre tudo sobre atraso, monte chronology e matriz de evidências”.</p><h3>Versionamento</h3><p>Uma regra: <b>Claude nunca sobrescreve o original.</b></p><pre>Memorial_v06_WORKING.docx
+Memorial_v07_AI-REVIEW.docx
+Memorial_v08_PARTNER-REVIEW.docx
+Memorial_FILED.pdf</pre><h3>Obsidian</h3><p>Ignore no começo. Só introduza se ela sentir falta de uma base pessoal de notas, research e precedentes. Não use como DMS de cliente sem aprovação.</p><h3>Claude Code</h3><p>Ignore até existir um problema concreto de automação em lote.</p></section>
 
-<section id="skills"><h2>10. Skills prontas</h2>
-<p>Use como prompt normal ou transforme em Skill no Claude.</p>
+<section><h2>Primeira semana</h2><div class="steps"><div class="step"><div class="n">1</div><div><b>Dia 1</b> Resumir uma peça.</div></div><div class="step"><div class="n">2</div><div><b>Dia 2</b> Comparar duas peças.</div></div><div class="step"><div class="n">3</div><div><b>Dia 3</b> Revisar um draft próprio.</div></div><div class="step"><div class="n">4</div><div><b>Dia 4</b> Criar Project + pasta do primeiro caso.</div></div><div class="step"><div class="n">5</div><div><b>Dia 5</b> Instalar Organizador de Caso e organizar 00_ENTRADA.</div></div><div class="step"><div class="n">6</div><div><b>Dia 6</b> Fazer chronology.</div></div><div class="step"><div class="n">7</div><div><b>Dia 7</b> Escolher os 3 usos que realmente entraram na rotina.</div></div></div></section>
 
-<details><summary>01 — Matter Onboarding / Case Map</summary><button class="copy" data-copy="s1">Copy</button><pre id="s1">Act as a senior disputes associate onboarding onto this matter.
-Read only the materials supplied. Separate FACT, ALLEGATION, INFERENCE and UNKNOWN. Never fill gaps by assumption. Cite every material factual proposition. Flag contradictions and missing documents.
-
-Output:
-A. Executive case snapshot
-B. Parties/counsel/tribunal/institution
-C. Claims and defenses
-D. Key contractual provisions
-E. Procedural posture
-F. Issue map
-G. 20-event core chronology
-H. Witness/expert map
-I. Key documents
-J. Open questions/evidence gaps
-K. Immediate next actions
-End with Confidence & Verification.</pre></details>
-
-<details><summary>02 — Evidence-Backed Chronology</summary><button class="copy" data-copy="s2">Copy</button><pre id="s2">Build a chronology from the supplied working set.
-Do not treat pleadings as proof. Prefer contemporaneous documents. Deduplicate events. Distinguish event date from document date. Cite every row.
-
-Table: Date | Event | Actors | Source | Evidence status | Issue | Helps/hurts/neutral | Notes.
-Evidence status: DOCUMENTED / ALLEGED / INFERRED / DISPUTED.
-Then list chronology gaps, conflicting dates, corroboration needs, and documents to search next.</pre></details>
-
-<details><summary>03 — Pleading Red Team</summary><button class="copy" data-copy="s3">Copy</button><pre id="s3">Review the draft first as hostile opposing counsel, then as a skeptical tribunal. Do not rewrite immediately.
-Pass 1: structure and logic.
-Pass 2: factual assertions with weak/missing/mismatched support.
-Pass 3: strongest counterarguments, adverse facts, legal/causal leaps.
-Pass 4: tribunal questions and unproven points.
-
-Output: Priority | Section | Problem | Why it matters | Counterargument | Recommended fix.
-Only then give targeted drafting suggestions.</pre></details>
-
-<details><summary>04 — Witness Preparation</summary><button class="copy" data-copy="s4">Copy</button><pre id="s4">Prepare a witness interview using only the supplied documents.
-Create: role, personal chronology, authored/received docs, decisions/meetings, facts within personal knowledge, facts outside it, inconsistencies, adverse documents, corroboration needs, interview questions.
-For every question give objective, source and type (open / confirmatory / challenge).
-Never fabricate memory or suggest language the witness should adopt.</pre></details>
-
-<details><summary>05 — Cross-Examination Builder</summary><button class="copy" data-copy="s5">Copy</button><pre id="s5">Compare the witness statement against contemporaneous documents, pleadings and other witness evidence.
-Identify contradictions, changed stories, unsupported assertions, omissions, inconsistent documents and concessions.
-For each cross point: proposition; foundation; document/prior statement; leading-question sequence; exit point; rehabilitation risk; recommendation USE / RESERVE / DROP.</pre></details>
-
-<details><summary>06 — Document Production / Redfern</summary><button class="copy" data-copy="s6">Copy</button><pre id="s6">For each document request assess: issue, relevance/materiality, scope, date range, custodians/repositories, burden/proportionality, privilege/confidentiality, ambiguity, objections and narrower formulation.
-Output: Request | Issue | Relevance | Scope risk | Objection candidates | Search plan | Missing info.
-For received production identify satisfied, partial, unexplained gaps, missing attachments/referenced docs and incomplete document families.</pre></details>
-
-<details><summary>07 — Verifiable Legal Research</summary><button class="copy" data-copy="s7">Copy</button><pre id="s7">Never invent authorities, quotations, pincites, docket numbers or publication details. Prefer primary sources. State jurisdiction, time and procedural context. Mark inaccessible authorities UNVERIFIED.
-Output:
-1. Research question
-2. Governing framework
-3. Proposition | Authority | Court/tribunal | Date | Pinpoint | Primary/secondary | Source | Verified?
-4. Conflicting authority
-5. Open issues
-6. Suggested searches
-7. Short answer + confidence.
-Check every quotation against the original.</pre></details>
-
-<details><summary>08 — Hearing Daily Digest</summary><button class="copy" data-copy="s8">Copy</button><pre id="s8">Analyze today's transcript and hearing notes.
-Produce: executive summary; admissions/concessions; contradictions; tribunal questions; undertakings; evidence gaps; closing points; witness-by-witness record assessment; next-day actions.
-Cite transcript page/line.
-Maintain Admissions Ledger: Witness | Proposition | Transcript cite | Exhibit | Issue | Follow-up | Status.</pre></details>
-
-<details><summary>09 — Claim / Defense Argument Map</summary><button class="copy" data-copy="s9">Copy</button><pre id="s9">For each claim/defense identify:
-legal test/elements; Claimant proposition/evidence; Respondent proposition/evidence; undisputed facts; disputed facts; burden; vulnerability of each side; what the tribunal must decide; missing evidence.
-Separate evidence from advocacy. Do not collapse allegations into facts.</pre></details>
-
-<details><summary>10 — Session Closeout</summary><button class="copy" data-copy="s10">Copy</button><pre id="s10">At the end of a substantive session create an audit trail:
-Date / Task / Matter / Working set used.
-What was produced and filenames.
-Material conclusions.
-Sources materially relied upon.
-Verification required.
-Explicit lawyer decisions/instructions.
-Open items: owner / next action / target date.
-Recommend updates to Core chronology, Issue map, Witness map, Research log, Procedural calendar or Project Instructions.
-Do not update source-of-truth documents unless explicitly instructed.</pre></details>
-</section>
-
-<section id="routine"><h2>11. Rotina de 6 passos</h2>
-<div class="flow"><span>1. Matter</span><b>→</b><span>2. Deliverable</span><b>→</b><span>3. Session Pack</span><b>→</b><span>4. Analyze</span><b>→</b><span>5. Verify</span><b>→</b><span>6. Closeout + DMS</span></div>
-<div class="callout"><b>Objetivo:</b> não é usar Claude mais. É reduzir trabalho mecânico preservando rastreabilidade suficiente para defender de onde veio cada proposição material.</div>
-</section>
-
-<section id="sources"><h2>Fontes</h2>
-<ul>
-<li><a href="https://www.anthropic.com/webinars/claude-for-legal-teams">Anthropic — Claude for Legal Teams</a></li>
-<li><a href="https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-claude-cowork">Anthropic — Projects in Cowork</a></li>
-<li><a href="https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork">Anthropic — Getting started with Cowork</a></li>
-<li><a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude">Anthropic — Skills</a></li>
-<li><a href="https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training">Anthropic Privacy — Model training</a></li>
-<li><a href="https://privacy.claude.com/en/articles/9267385-does-anthropic-act-as-a-data-processor-or-controller">Anthropic Privacy — Processor/controller</a></li>
-<li><a href="https://privacy.claude.com/en/articles/9265372-who-owns-and-manages-the-data-of-my-team">Anthropic Privacy — Team data</a></li>
-<li><a href="https://www.whitecase.com/insight-our-thinking/2025-international-arbitration-survey-arbitration-and-ai">White & Case / QMUL — Arbitration & AI</a></li>
-</ul>
-<p class="small">Atualizado em 29 set. 2026. Para segurança e retenção, prevalecem o contrato do workspace, as políticas do escritório, instruções do cliente e regras profissionais.</p>
-</section>
-
-</main></div>
-<script>
-document.querySelectorAll('.copy').forEach(b=>b.onclick=async()=>{let e=document.getElementById(b.dataset.copy);await navigator.clipboard.writeText(e.innerText);let x=b.textContent;b.textContent='Copied ✓';setTimeout(()=>b.textContent=x,1100)});
-</script>
+<section><h2>Fontes oficiais</h2><ul>
+<li><a href="https://support.claude.com/pt/articles/12512198-como-criar-habilidades-personalizadas" target="_blank">Como criar Skills personalizadas</a></li>
+<li><a href="https://support.claude.com/pt/articles/12512180-usar-skills-no-claude" target="_blank">Usar Skills no Claude</a></li>
+<li><a href="https://support.claude.com/pt/articles/13345190-comece-com-claude-cowork" target="_blank">Começar com Cowork</a></li>
+<li><a href="https://support.claude.com/pt/articles/15183774-conectar-ao-microsoft-365" target="_blank">Conectar Microsoft 365</a></li>
+<li><a href="https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training" target="_blank">Dados comerciais e treinamento</a></li></ul><p class="muted">Atualizado em 29 set. 2026.</p></section>
+</main></div><div class="footer">Claude Starter Kit para Verena · contencioso e arbitragem · feito para quem está começando do zero</div>
+<script>async function copyText(id,b){const e=document.getElementById(id);await navigator.clipboard.writeText(e.innerText);const x=b.textContent;b.textContent="Copiado ✓";setTimeout(()=>b.textContent=x,1100)}</script>
 </body></html>
